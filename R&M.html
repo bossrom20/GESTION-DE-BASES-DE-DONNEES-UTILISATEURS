@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plateforme de Gestion des Tâches</title>
+    <link rel="stylesheet" href="./R&M.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <nav>
+          <div class="logo">Tech Innov</div>
+          <div class="nav-links">
+            <a href="#" id="nav-dashboard">Tableau de bord</a>
+            <a href="#" id="nav-projects">Projets</a>
+            <a href="#" id="nav-tasks">Tâches</a>
+            <a href="#" id="nav-teams">Équipes</a>
+          </div>
+          <div class="user-info">
+            <div class="user-avatar">RB</div>
+            <div>
+              <div class="user-name">BOSSOU Roméo</div>
+              <div class="role-badge" id="user-role">Responsable</div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <!-- Dashboard Section -->
+      <section class="section" id="dashboard-section">
+        <div class="section-title">
+          <h2>Tableau de bord</h2>
+        </div>
+        <div class="dashboard-stats">
+          <div class="tab-container">
+            <div class="tabs">
+              <button class="tab active" data-tab="overview">
+                Vue d'ensemble
+              </button>
+              <button class="tab" data-tab="my-tasks">Mes tâches</button>
+              <button class="tab" data-tab="my-projects">Mes projets</button>
+            </div>
+          </div>
+          <div class="tab-content active" id="overview">
+            <div class="project-card">
+              <div class="project-card-header">
+                <div class="project-card-title">Résumé de vos activités</div>
+              </div>
+              <div class="project-card-info">
+                <div>
+                  <strong>Projets actifs:</strong>
+                  <span id="active-projects-count">3</span>
+                </div>
+                <div>
+                  <strong>Tâches en cours:</strong>
+                  <span id="active-tasks-count">01</span>
+                </div>
+                <div>
+                  <strong>Tâches en retard:</strong>
+                  <span id="late-tasks-count">01</span>
+                </div>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-card-header">
+                <div class="project-card-title">Tâches récentes</div>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Titre</th>
+                    <th>Projet</th>
+                    <th>Échéance</th>
+                    <th>Statut</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-tasks">
+                  <tr>
+                    <td>Finaliser le design</td>
+                    <td>Refonte du site web</td>
+                    <td>25/04/2025</td>
+                    <td>
+                      <span class="task-status status-progress">En cours</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Implémenter l'API</td>
+                    <td>Application mobile</td>
+                    <td>27/04/2025</td>
+                    <td>
+                      <span class="task-status status-pending">À faire</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Rapport mensuel</td>
+                    <td>Administration</td>
+                    <td>30/04/2025</td>
+                    <td>
+                      <span class="task-status status-blocked">Bloquée</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-content" id="my-tasks">
+            <div class="filters">
+              <div class="filter-group">
+                <label>Statut:</label>
+                <select id="filter-status">
+                  <option value="all">Tous</option>
+                  <option value="pending">À faire</option>
+                  <option value="progress">En cours</option>
+                  <option value="completed">Terminée</option>
+                  <option value="blocked">Bloquée</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label>Priorité:</label>
+                <select id="filter-priority">
+                  <option value="all">Toutes</option>
+                  <option value="high">Haute</option>
+                  <option value="medium">Moyenne</option>
+                  <option value="low">Basse</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <button id="apply-filters">Appliquer</button>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Titre</th>
+                  <th>Projet</th>
+                  <th>Priorité</th>
+                  <th>Échéance</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="my-tasks-list">
+                <tr>
+                  <td>Finaliser le design</td>
+                  <td>Refonte du site web</td>
+                  <td>Haute</td>
+                  <td>25/04/2025</td>
+                  <td>
+                    <span class="task-status status-progress">En cours</span>
+                  </td>
+                  <td>
+                    <button onclick="openTaskModal(1)">Détails</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Implémenter l'API</td>
+                  <td>Application mobile</td>
+                  <td>Moyenne</td>
+                  <td>27/04/2025</td>
+                  <td>
+                    <span class="task-status status-pending">À faire</span>
+                  </td>
+                  <td>
+                    <button onclick="openTaskModal(2)">Détails</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Rapport mensuel</td>
+                  <td>Administration</td>
+                  <td>Basse</td>
+                  <td>30/04/2025</td>
+                  <td>
+                    <span class="task-status status-blocked">Bloquée</span>
+                  </td>
+                  <td>
+                    <button onclick="openTaskModal(3)">Détails</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <button id="prev-page" disabled>Précédent</button>
+              <button id="next-page">Suivant</button>
+            </div>
+          </div>
+          <div class="tab-content" id="my-projects">
+            <div class="project-card">
+              <div class="project-card-header">
+                <div class="project-card-title">Refonte du site web</div>
+                <div class="project-card-actions">
+                  <button onclick="openProjectModal(1)">Modifier</button>
+                  <button onclick="openTeamModal(1)">Équipe</button>
+                </div>
+              </div>
+              <div class="project-card-info">
+                <div><strong>Début:</strong> 01/04/2025</div>
+                <div><strong>Fin prévue:</strong> 15/05/2025</div>
+                <div><strong>Tâches:</strong> 8/12 complétées</div>
+              </div>
+              <div class="project-card-description">
+                Refonte complète du site web de l'entreprise avec une nouvelle
+                identité visuelle.
+              </div>
+              <div class="team-members">
+                <div class="team-member">BOSSOU Romé(Chef)</div>
+                <div class="team-member">Alice Smith</div>
+                <div class="team-member">Bob Johnson</div>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 66%"></div>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-card-header">
+                <div class="project-card-title">Application mobile</div>
+                <div class="project-card-actions">
+                  <button onclick="openProjectModal(2)">Modifier</button>
+                  <button onclick="openTeamModal(2)">Équipe</button>
+                </div>
+              </div>
+              <div class="project-card-info">
+                <div><strong>Début:</strong> 15/03/2025</div>
+                <div><strong>Fin prévue:</strong> 30/06/2025</div>
+                <div><strong>Tâches:</strong> 5/20 complétées</div>
+              </div>
+              <div class="project-card-description">
+                Développement d'une application mobile pour iOS et Android.
+              </div>
+              <div class="team-members">
+                <div class="team-member">John Doe (Chef)</div>
+                <div class="team-member">Eve Williams</div>
+                <div class="team-member">Charlie Brown</div>
+                <div class="team-member">Diana Prince</div>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 25%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section class="section hidden" id="projects-section">
+        <div class="section-title">
+          <h2>Projets</h2>
+          <button id="add-project-btn">Nouveau projet</button>
+        </div>
+        <div id="projects-list">
+          <div class="project-card">
+            <div class="project-card-header">
+              <div class="project-card-title">Refonte du site web</div>
+              <div class="project-card-actions">
+                <button onclick="openProjectModal(1)">Modifier</button>
+                <button onclick="openTeamModal(1)">Équipe</button>
+                <button onclick="openProjectTasks(1)">Tâches</button>
+              </div>
+            </div>
+            <div class="project-card-info">
+              <div><strong>Début:</strong> 01/04/2025</div>
+              <div><strong>Fin prévue:</strong> 15/05/2025</div>
+              <div><strong>Tâches:</strong> 8/12 complétées</div>
+            </div>
+            <div class="project-card-description">
+              Refonte complète du site web de l'entreprise avec une nouvelle
+              identité visuelle.
+            </div>
+            <div class="team-members">
+              <div class="team-member">John Doe (Chef)</div>
+              <div class="team-member">Alice Smith</div>
+              <div class="team-member">Bob Johnson</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 66%"></div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-card-header">
+              <div class="project-card-title">Application mobile</div>
+              <div class="project-card-actions">
+                <button onclick="openProjectModal(2)">Modifier</button>
+                <button onclick="openTeamModal(2)">Équipe</button>
+                <button onclick="openProjectTasks(2)">Tâches</button>
+              </div>
+            </div>
+            <div class="project-card-info">
+              <div><strong>Début:</strong> 15/03/2025</div>
+              <div><strong>Fin prévue:</strong> 30/06/2025</div>
+              <div><strong>Tâches:</strong> 5/20 complétées</div>
+            </div>
+            <div class="project-card-description">
+              Développement d'une application mobile pour iOS et Android.
+            </div>
+            <div class="team-members">
+              <div class="team-member">John Doe (Chef)</div>
+              <div class="team-member">Eve Williams</div>
+              <div class="team-member">Charlie Brown</div>
+              <div class="team-member">Diana Prince</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 25%"></div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-card-header">
+              <div class="project-card-title">Administration</div>
+              <div class="project-card-actions">
+                <button onclick="openProjectModal(3)">Modifier</button>
+                <button onclick="openTeamModal(3)">Équipe</button>
+                <button onclick="openProjectTasks(3)">Tâches</button>
+              </div>
+            </div>
+            <div class="project-card-info">
+              <div><strong>Début:</strong> 01/01/2025</div>
+              <div><strong>Fin prévue:</strong> 31/12/2025</div>
+              <div><strong>Tâches:</strong> 15/30 complétées</div>
+            </div>
+            <div class="project-card-description">
+              Tâches administratives récurrentes de l'entreprise.
+            </div>
+            <div class="team-members">
+              <div class="team-member">John Doe (Chef)</div>
+              <div class="team-member">Grace Lee</div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 50%"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tasks Section -->
+      <section class="section hidden" id="tasks-section">
+        <div class="section-title">
+          <h2>Tâches</h2>
+          <button id="add-task-btn">Nouvelle tâche</button>
+        </div>
+        <div class="filters">
+          <div class="filter-group">
+            <label>Projet:</label>
+            <select id="task-filter-project">
+              <option value="all">Tous</option>
+              <option value="1">Refonte du site web</option>
+              <option value="2">Application mobile</option>
+              <option value="3">Administration</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Statut:</label>
+            <select id="task-filter-status">
+              <option value="all">Tous</option>
+              <option value="pending">À faire</option>
+              <option value="progress">En cours</option>
+              <option value="completed">Terminée</option>
+              <option value="blocked">Bloquée</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Priorité:</label>
+            <select id="task-filter-priority">
+              <option value="all">Toutes</option>
+              <option value="high">Haute</option>
+              <option value="medium">Moyenne</option>
+              <option value="low">Basse</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Assigné à:</label>
+            <select id="task-filter-assignee">
+              <option value="all">Tous</option>
+              <option value="1">John Doe</option>
+              <option value="2">Alice Smith</option>
+              <option value="3">Bob Johnson</option>
+              <option value="4">Eve Williams</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <button id="apply-task-filters">Appliquer</button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Titre</th>
+              <th>Projet</th>
+              <th>Assigné à</th>
+              <th>Priorité</th>
+              <th>Échéance</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tasks-list">
+            <tr>
+              <td>Finaliser le design</td>
+              <td>Refonte du site web</td>
+              <td>Alice Smith</td>
+              <td>Haute</td>
+              <td>25/04/2025</td>
+              <td><span class="task-status status-progress">En cours</span></td>
+              <td>
+                <button onclick="openTaskModal(1)">Détails</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Implémenter l'API</td>
+              <td>Application mobile</td>
+              <td>Bob Johnson</td>
+              <td>Moyenne</td>
+              <td>27/04/2025</td>
+              <td><span class="task-status status-pending">À faire</span></td>
+              <td>
+                <button onclick="openTaskModal(2)">Détails</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Rapport mensuel</td>
+              <td>Administration</td>
+              <td>John Doe</td>
+              <td>Basse</td>
+              <td>30/04/2025</td>
+              <td><span class="task-status status-blocked">Bloquée</span></td>
+              <td>
+                <button onclick="openTaskModal(3)">Détails</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Tester les fonctionnalités</td>
+              <td>Application mobile</td>
+              <td>Eve Williams</td>
+              <td>Haute</td>
+              <td>02/05/2025</td>
+              <td>
+                <span class="task-status status-completed">Terminée</span>
+              </td>
+              <td>
+                <button onclick="openTaskModal(4)">Détails</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Optimiser les images</td>
+              <td>Refonte du site web</td>
+              <td>Alice Smith</td>
+              <td>Moyenne</td>
+              <td>28/04/2025</td>
+              <td><span class="task-status status-progress">En cours</span></td>
+              <td>
+                <button onclick="openTaskModal(5)">Détails</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <button id="prev-tasks-page" disabled>Précédent</button>
+          <button id="next-tasks-page">Suivant</button>
+        </div>
+      </section>
+
+      <!-- Teams Section -->
+      <section class="section hidden" id="teams-section">
+        <div class="section-title">
+          <h2>Équipes</h2>
+          <button id="add-team-btn">Nouvelle équipe</button>
+        </div>
+        <div id="teams-list">
+          <div class="project-card">
+            <div class="project-card-header">
+              <div class="project-card-title">Équipe de développement web</div>
+              <div class="project-card-actions">
+                <button onclick="openTeamEditModal(1)">Modifier</button>
+              </div>
+            </div>
+            <div class="project-card-info">
+              <div><strong>Projets:</strong> Refonte du site web</div>
+              <div><strong>Membres:</strong> 3</div>
+            </div>
+            <div class="team-members">
+              <div class="team-member">John Doe (Chef)</div>
+              <div class="team-member">Alice Smith</div>
+              <div class="team-member">Bob Johnson</div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-card-header">
+              <div class="project-card-title">Équipe mobile</div>
+              <div class="project-card-actions">
+                <button onclick="openTeamEditModal(2)">Modifier</button>
+              </div>
+            </div>
+            <div class="project-card-info">
+              <div><strong>Projets:</strong> Application mobile</div>
+              <div><strong>Membres:</strong></div>
+              <div><strong>Membres:</strong> 4</div>
+            </div>
+            <div class="team-members">
+              <div class="team-member">John Doe (Chef)</div>
+              <div class="team-member">Eve Williams</div>
+              <div class="team-member">Charlie Brown</div>
+              <div class="team-member">Diana Prince</div>
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-card-header">
+              <div class="project-card-title">Équipe administrative</div>
+              <div class="project-card-actions">
+                <button onclick="openTeamEditModal(3)">Modifier</button>
+              </div>
+            </div>
+            <div class="project-card-info">
+              <div><strong>Projets:</strong> Administration</div>
+              <div><strong>Membres:</strong> 2</div>
+            </div>
+            <div class="team-members">
+              <div class="team-member">John Doe (Chef)</div>
+              <div class="team-member">Grace Lee</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modals -->
+      <!-- Project Modal -->
+      <div class="modal" id="project-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="project-modal-title">Nouveau projet</h3>
+            <button class="modal-close" onclick="closeModal('project-modal')">
+              &times;
+            </button>
+          </div>
+          <form id="project-form">
+            <div class="form-group">
+              <label for="project-name">Nom du projet</label>
+              <input type="text" id="project-name" required />
+            </div>
+            <div class="form-group">
+              <label for="project-description">Description</label>
+              <textarea id="project-description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="project-start-date">Date de début</label>
+              <input type="date" id="project-start-date" required />
+            </div>
+            <div class="form-group">
+              <label for="project-end-date">Date de fin prévue</label>
+              <input type="date" id="project-end-date" required />
+            </div>
+            <input type="hidden" id="project-id" />
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="secondary"
+                onclick="closeModal('project-modal')"
+              >
+                Annuler
+              </button>
+              <button type="submit">Enregistrer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Task Modal -->
+      <div class="modal" id="task-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="task-modal-title">Nouvelle tâche</h3>
+            <button class="modal-close" onclick="closeModal('task-modal')">
+              &times;
+            </button>
+          </div>
+          <form id="task-form">
+            <div class="form-group">
+              <label for="task-title">Titre</label>
+              <input type="text" id="task-title" required />
+            </div>
+            <div class="form-group">
+              <label for="task-description">Description</label>
+              <textarea id="task-description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="task-project">Projet</label>
+              <select id="task-project" required>
+                <option value="">Sélectionner un projet</option>
+                <option value="1">Refonte du site web</option>
+                <option value="2">Application mobile</option>
+                <option value="3">Administration</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="task-assignee">Assigné à</label>
+              <select id="task-assignee" required>
+                <option value="">Sélectionner un membre</option>
+                <option value="1">BOSSOU Romeo</option>
+                <option value="2">Alice Smith</option>
+                <option value="3">Bob Johnson</option>
+                <option value="4">Eve Williams</option>
+                <option value="5">Charlie Brown</option>
+                <option value="6">Diana Prince</option>
+                <option value="7">Grace Lee</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="task-priority">Priorité</label>
+              <select id="task-priority" required>
+                <option value="high">Haute</option>
+                <option value="medium">Moyenne</option>
+                <option value="low">Basse</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="task-status">Statut</label>
+              <select id="task-status" required>
+                <option value="pending">À faire</option>
+                <option value="progress">En cours</option>
+                <option value="completed">Terminée</option>
+                <option value="blocked">Bloquée</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="task-due-date">Échéance</label>
+              <input type="date" id="task-due-date" required />
+            </div>
+            <input type="hidden" id="task-id" />
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="secondary"
+                onclick="closeModal('task-modal')"
+              >
+                Annuler
+              </button>
+              <button type="submit">Enregistrer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Team Modal -->
+      <div class="modal" id="team-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="team-modal-title">Gestion d'équipe</h3>
+            <button class="modal-close" onclick="closeModal('team-modal')">
+              &times;
+            </button>
+          </div>
+          <form id="team-form">
+            <div class="form-group">
+              <label for="team-name">Nom de l'équipe</label>
+              <input type="text" id="team-name" required />
+            </div>
+            <div class="form-group">
+              <label for="team-project">Projet</label>
+              <select id="team-project" required>
+                <option value="">Sélectionner un projet</option>
+                <option value="1">Refonte du site web</option>
+                <option value="2">Application mobile</option>
+                <option value="3">Administration</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="team-leader">Chef d'équipe</label>
+              <select id="team-leader" required>
+                <option value="">Sélectionner un chef</option>
+                <option value="1">John Doe</option>
+                <option value="2">Alice Smith</option>
+                <option value="3">Bob Johnson</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Membres de l'équipe</label>
+              <div id="team-members-list">
+                <div>
+                  <input type="checkbox" id="member-1" value="1" />
+                  <label for="member-1">John Doe</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="member-2" value="2" />
+                  <label for="member-2">Alice Smith</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="member-3" value="3" />
+                  <label for="member-3">Bob Johnson</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="member-4" value="4" />
+                  <label for="member-4">Eve Williams</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="member-5" value="5" />
+                  <label for="member-5">Charlie Brown</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="member-6" value="6" />
+                  <label for="member-6">Diana Prince</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="member-7" value="7" />
+                  <label for="member-7">Grace Lee</label>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" id="team-id" />
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="secondary"
+                onclick="closeModal('team-modal')"
+              >
+                Annuler
+              </button>
+              <button type="submit">Enregistrer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Task Detail Modal -->
+      <div class="modal" id="task-detail-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="task-detail-title">
+              Détails de la tâche
+            </h3>
+            <button
+              class="modal-close"
+              onclick="closeModal('task-detail-modal')"
+            >
+              &times;
+            </button>
+          </div>
+          <div id="task-detail-content">
+            <div class="form-group">
+              <label>Titre:</label>
+              <div id="detail-task-title">Finaliser le design</div>
+            </div>
+            <div class="form-group">
+              <label>Description:</label>
+              <div id="detail-task-description">
+                Finaliser tous les éléments de design pour la page d'accueil et
+                les pages produits.
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Projet:</label>
+              <div id="detail-task-project">Refonte du site web</div>
+            </div>
+            <div class="form-group">
+              <label>Assigné à:</label>
+              <div id="detail-task-assignee">Alice Smith</div>
+            </div>
+            <div class="form-group">
+              <label>Priorité:</label>
+              <div id="detail-task-priority">Haute</div>
+            </div>
+            <div class="form-group">
+              <label>Échéance:</label>
+              <div id="detail-task-due-date">25/04/2025</div>
+            </div>
+            <div class="form-group">
+              <label>Statut:</label>
+              <div id="detail-task-status">
+                <select id="update-task-status">
+                  <option value="pending">À faire</option>
+                  <option value="progress" selected>En cours</option>
+                  <option value="completed">Terminée</option>
+                  <option value="blocked">Bloquée</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Commentaires:</label>
+              <div id="task-comments">
+                <div class="comment">
+                  <div class="comment-author">John Doe</div>
+                  <div class="comment-date">21/04/2025</div>
+                  <div class="comment-text">
+                    N'oubliez pas d'optimiser les images.
+                  </div>
+                </div>
+                <div class="comment">
+                  <div class="comment-author">Alice Smith</div>
+                  <div class="comment-date">22/04/2025</div>
+                  <div class="comment-text">
+                    J'ai presque terminé la page d'accueil.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="new-comment">Ajouter un commentaire:</label>
+              <textarea id="new-comment" rows="2"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="secondary"
+              onclick="closeModal('task-detail-modal')"
+            >
+              Fermer
+            </button>
+            <button onclick="updateTaskStatus()">
+              Mettre à jour le statut
+            </button>
+            <button onclick="addTaskComment()">Ajouter un commentaire</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Member Modal -->
+      <div class="modal" id="add-member-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Ajouter un membre</h3>
+            <button
+              class="modal-close"
+              onclick="closeModal('add-member-modal')"
+            >
+              &times;
+            </button>
+          </div>
+          <form id="add-member-form">
+            <div class="form-group">
+              <label for="member-name">Nom du membre</label>
+              <input type="text" id="member-name" required />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="secondary"
+                onclick="closeModal('add-member-modal')"
+              >
+                Annuler
+              </button>
+              <button type="button" onclick="saveMember()">Enregistrer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="./R&M.js"></script>
+  </body>
+</html>
